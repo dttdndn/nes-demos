@@ -10,3 +10,7 @@ Run and tested against the [Mesen2](https://github.com/SourMesen/Mesen2) emulato
 ## 01-backdrop-color
 
 PPU rendering is disabled and the screen is filled with a solid white color using the backdrop color.
+
+## 02-solid-background
+
+PPU rendering is enabled and the screen is filled with a solid blue color using background palette and tiles.
