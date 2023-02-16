@@ -26,10 +26,10 @@ Reset:
   and #$80
   beq -
 
-; enable background rendering
+; disable PPU
   lda #%00000000
   sta $2000
-  lda #%00001110
+  lda #%00000000
   sta $2001
 
 ; set the background color 0 to blue
@@ -39,6 +39,12 @@ Reset:
   sta $2006
   lda #$12
   sta $2007
+
+; enable background rendering
+  lda #%00000000
+  sta $2000
+  lda #%00001110
+  sta $2001
 
 ; loop forever (game loop)
 -
