@@ -108,4 +108,4 @@ Irq:
 
 ; === CHR ===================================================================
 
-.incbin "./checkerboard_8k.bin"
+.incbin "../checkerboard_8k.bin"
