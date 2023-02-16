@@ -18,3 +18,7 @@ PPU rendering is enabled and the screen is filled with a solid blue color using 
 ## 03-checkboard
 
 Render a fullscreen checkerboard pattern.
+
+## 04-scroll
+
+Scrolls a checkerboard screen horizontally.
