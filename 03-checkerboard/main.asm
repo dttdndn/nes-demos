@@ -9,6 +9,16 @@
 .db $00 ; Flags 10 – TV system, PRG-RAM presence (rarely used extension)
 .db $00,$00,$00,$00,$00 ; Unused padding (should be filled with zero)
 
+MACRO ToggleAValue ; toggle A's value (0 or 1)
+  cmp #$01
+  beq +
+  lda #$01
+  jmp ++
++:
+  lda #$00
+++:
+ENDM
+
 ; === PRG ===================================================================
 .org $c000
 
@@ -21,10 +31,70 @@ Reset:
   txs
 
 ; wait for vblank
--
+-:
   lda $2002
   and #$80
   beq -
+
+; disable background rendering
+  lda #%00000000
+  sta $2000
+  lda #%00000000
+  sta $2001
+
+; set the background palette base address
+  lda #$3f
+  sta $2006
+  lda #$00
+  sta $2006
+; set colors to white, black, white, white
+  lda #$30
+  sta $2007
+  lda #$3f
+  sta $2007
+  lda #$30
+  sta $2007
+  lda #$30
+  sta $2007
+
+  ; set the background attribute table base address
+  lda #$23
+  sta $2006
+  lda #$C0
+  sta $2006
+  ; zero it all
+  ldx #64
+  lda #$00
+-:
+  sta $2007
+  dex
+  bne -
+
+; set background nametable base address
+  lda #$20
+  sta $2006
+  lda #$00
+  sta $2006
+
+; fill the screen with a checkerboard pattern
+  ldy #30 ; 30 rows
+  ldx #32 ; 32 columns
+  lda #$01 ; initial tile index
+-:
+  sta $2007
+  ToggleAValue
+  dex
+  bne -
+  ldx #32
+  ToggleAValue
+  dey
+  bne -
+
+; set scroll coordinates to (0,0)
+  lda #$00
+  sta $2005
+  lda #$00
+  sta $2005
 
 ; enable background rendering
   lda #%00000000
@@ -32,16 +102,8 @@ Reset:
   lda #%00001110
   sta $2001
 
-; set the background color 0 to blue
-  lda #$3f
-  sta $2006
-  lda #$00
-  sta $2006
-  lda #$12
-  sta $2007
-
-; loop forever (game loop)
--
+; loop forever
+-:
   jmp -
 
 Nmi:
@@ -56,4 +118,4 @@ Irq:
 
 ; === CHR ===================================================================
 
-.incbin "../blank_8k.bin"
+.incbin "./checkerboard_8k.bin"

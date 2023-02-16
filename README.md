@@ -14,3 +14,7 @@ PPU rendering is disabled and the screen is filled with a solid white color usin
 ## 02-solid-background
 
 PPU rendering is enabled and the screen is filled with a solid blue color using background palette and tiles.
+
+## 03-checkboard
+
+Render a fullscreen checkerboard pattern.
