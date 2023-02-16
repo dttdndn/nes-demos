@@ -9,16 +9,6 @@
 .db $00 ; Flags 10 – TV system, PRG-RAM presence (rarely used extension)
 .db $00,$00,$00,$00,$00 ; Unused padding (should be filled with zero)
 
-MACRO ToggleAValue ; toggle A's value (0 or 1)
-  cmp #$01
-  beq +
-  lda #$01
-  jmp ++
-+:
-  lda #$00
-++:
-ENDM
-
 ; === PRG ===================================================================
 .org $c000
 
@@ -82,11 +72,11 @@ Reset:
   lda #$01 ; initial tile index
 -:
   sta $2007
-  ToggleAValue
+  eor #1
   dex
   bne -
   ldx #32
-  ToggleAValue
+  eor #1
   dey
   bne -
 
