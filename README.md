@@ -22,3 +22,7 @@ Render a fullscreen checkerboard pattern.
 ## 04-scroll
 
 Scrolls a checkerboard screen horizontally.
+
+## 05-sprite
+
+Renders a sprite a the center of the screen.
