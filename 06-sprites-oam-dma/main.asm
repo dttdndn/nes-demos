@@ -98,19 +98,30 @@ Reset:
   dey
   bne -
 
-; set PPU OAM base address to 0
+; zero the OAM area 0200-02ff
   lda #$00
-  sta $2003
+  ldx #$ff
+-:
+  sta $0200, x
+  dex
+  bne -
 
-; position a sprite at the center of the screen
-  lda #116 ; y = 116
-  sta $2004
-  lda #$02 ; tile index 2
-  sta $2004
-  lda #$00 ; attributes
-  sta $2004
-  lda #124 ; x = 124
-  sta $2004
+; set tile index 2 and x = 4*index for all sprites
+  ldx #64
+-:
+  txa
+  asl
+  asl
+  tay
+  lda #2
+  sta $0201, y
+  txa
+  asl
+  asl
+  sta $0200, y
+  sta $0203, y
+  dex
+  bne -
 
 ; set scroll coordinates to (0,0)
   lda #$00
@@ -132,6 +143,10 @@ Reset:
   jmp -
 
 Nmi:
+; trigger OAM DMA at 0200-02ff
+  lda #$02
+  sta $4014
+; compute scroll
   clc
   lda (scrollyd)
   adc #32
@@ -139,7 +154,7 @@ Nmi:
   bcc noinc
   inc (scrolly)
 noinc:
-  ; update scroll coordinates
+  ; update scroll
   lda #$00
   sta $2005
   lda scrolly

@@ -26,3 +26,7 @@ Scrolls a checkerboard screen horizontally.
 ## 05-sprite
 
 Renders a sprite a the center of the screen.
+
+## 06-sprites-oam-dma
+
+Renders all 64 sprites using OAM DMA.
