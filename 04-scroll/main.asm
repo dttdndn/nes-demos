@@ -96,12 +96,9 @@ Reset:
   lda #%00001110
   sta $2001
 
-; enable interrupt
-  cli
-
 ; loop forever
--:
-  jmp -
+game_loop:
+  jmp game_loop
 
 Nmi:
   inc (scroll_x)

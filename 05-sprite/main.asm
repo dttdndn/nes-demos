@@ -124,9 +124,6 @@ Reset:
   lda #%00011110
   sta $2001
 
-; enable interrupt
-  cli
-
 ; loop forever
 -:
   jmp -
