@@ -30,3 +30,7 @@ Renders a sprite a the center of the screen.
 ## 06-sprites-oam-dma
 
 Renders all 64 sprites using OAM DMA.
+
+## 07-sound-pulse
+
+Plays a contant sound using pulse 1 channel.
