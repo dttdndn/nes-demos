@@ -34,3 +34,7 @@ Renders all 64 sprites using OAM DMA.
 ## 07-sound-pulse
 
 Plays a contant sound using pulse 1 channel.
+
+## 08-demo-wave
+
+A set of sprites is displayed and animated using a sin wave.
